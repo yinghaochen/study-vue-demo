@@ -27,6 +27,8 @@ class NewAxios {
       withCredentials: this.withCredentials,
       timeout: this.timeout
     }
+    this.setInterceptors(instance, option.url)
+    return instance(config)
   }
   setInterceptors = (instance, url) => {
     instance.interceptors.request.use((config) => {
@@ -57,3 +59,4 @@ class NewAxios {
     })
   }
 }
+export default new NewAxios;
