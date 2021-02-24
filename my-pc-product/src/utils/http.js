@@ -1,4 +1,3 @@
-import { Switch } from '@csii/vx-web';
 import axios from 'axios';
 import { Promise } from 'core-js';
 
@@ -48,6 +47,7 @@ class NewAxios {
             break;
         
           default:
+            console.log('服务器出错啦！')
             break;
         }
         return Promise.reject(err.response)
