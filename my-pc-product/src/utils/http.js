@@ -30,6 +30,9 @@ class NewAxios {
     return instance(config)
   }
   setInterceptors = (instance, url) => {
+    if (url === '/usr'){
+      console.log(url)
+    }
     instance.interceptors.request.use((config) => {
       //  添加loading
       config.headers.AuthorizationToken = localStorage.getItem('AuthorizationToken') || ''

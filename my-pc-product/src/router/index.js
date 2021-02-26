@@ -1,27 +1,38 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Main from '../views/main.vue'
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 Vue.use(VueRouter)
 
 const routes = [
   {
+    // 重定向，用来指向一打开网页就跳转到哪个路由
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/main'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/table',
-    name: 'table',
-    component: () => import('../views/table.vue')
+    path: '/main',
+    name: 'Main',
+    component: Main,
+    children: [
+      {
+        path: '/',
+        redirect: '/Home'
+      },
+      {
+        path: '/Home',
+        name: 'Home',
+        component: () => import('../views/Home.vue')
+      },
+      {
+        path: '/mytable',
+        name: 'MyTable',
+        component: ()=> import('../views/mytable.vue')
+      }
+    ]
   }
 ]
 
